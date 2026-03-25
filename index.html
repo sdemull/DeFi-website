@@ -65,7 +65,7 @@
 
   .nav-inner {
     display: flex; align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     height: 56px; gap: 2px;
   }
 
@@ -335,6 +335,21 @@
   .dd-item:hover { background: rgba(255,255,255,.1); color: #fff; }
 }
 
+
+/* FORCE dropdown items visible */
+.dd-menu .dd-item,
+.dd-menu .dd-item:link,
+.dd-menu .dd-item:visited {
+  color: #18343f !important;
+  background: transparent !important;
+}
+.dd-menu .dd-item:hover {
+  color: #18343f !important;
+  background: rgba(56,181,254,.08) !important;
+}
+.dd-menu {
+  background: #ffffff !important;
+}
 </style>
 </head>
 <body>
