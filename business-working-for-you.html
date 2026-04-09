@@ -246,7 +246,7 @@ document.querySelectorAll('.nav-dd-trigger').forEach(function(t){
 <script>
 (function() {
 
-  // ── STATE ──────────────────────────────────────────────────────────────────
+  // - STATE -
   var state = {
     step: 1,
     totalSteps: 7,
@@ -369,7 +369,7 @@ document.querySelectorAll('.nav-dd-trigger').forEach(function(t){
     return state.answers['revenue'] || 300000;
   }
 
-  // ── RENDER ─────────────────────────────────────────────────────────────────
+  // - RENDER -
 
   function fmt(n) {
     if (n >= 1000000) return '$' + (n/1000000).toFixed(1) + 'M';
@@ -516,7 +516,7 @@ document.querySelectorAll('.nav-dd-trigger').forEach(function(t){
     }
   };
 
-  // ── RESULTS ────────────────────────────────────────────────────────────────
+  // - RESULTS -
 
   function showResults() {
     document.getElementById('calc-question').style.display = 'none';
@@ -631,7 +631,7 @@ document.querySelectorAll('.nav-dd-trigger').forEach(function(t){
     document.getElementById('calc-question').scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  // ── INIT ──────�
+  // - INIT -
 
   // INIT
   renderSteps();
