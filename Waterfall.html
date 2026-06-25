@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retirement Income Waterfall — DeMull Financial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal: #18343f;
+    --blue: #38b5fe;
+    --blue-light: #e8f6ff;
+    --blue-mid: #b3e3ff;
+    --gold: #c9a84c;
+    --gold-light: #faf3e0;
+    --surface: #f7f9fa;
+    --surface-card: #ffffff;
+    --border: rgba(24,52,63,0.10);
+    --border-strong: rgba(24,52,63,0.18);
+    --text-primary: #18343f;
+    --text-secondary: #4a6470;
+    --text-muted: #7a9aaa;
+    --radius: 10px;
+    --radius-lg: 16px;
+    --font-display: 'DM Serif Display', Georgia, serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--surface);
+    color: var(--text-primary);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-strong);
+  }
+  .header-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 0.6rem;
+  }
+  .header h1 {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    color: var(--teal);
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 0.6rem;
+  }
+  .header p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  .brand-dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    margin: 0 6px;
+    vertical-align: middle;
+  }
+
+  /* Section headings */
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.85rem;
+  }
+
+  /* Controls grid */
+  .controls-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 12px;
+    margin-bottom: 2rem;
+  }
+  .ctrl {
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1rem 0.85rem;
+  }
+  .ctrl-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .ctrl-val {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--teal);
+    margin-bottom: 8px;
+    font-variant-numeric: tabular-nums;
+  }
+  input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 3px;
+    background: var(--blue-mid);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--teal);
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 1px var(--border-strong);
+    cursor: pointer;
+  }
+
+  /* Return inputs */
+  .returns-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 12px;
+    margin-bottom: 2rem;
+  }
+  .ret-card {
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.85rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .ret-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .ret-inner { flex: 1; min-width: 0; }
+  .ret-label { font-size: 11px; color: var(--text-muted); margin-bottom: 3px; font-weight: 500; }
+  .ret-input-wrap { display: flex; align-items: center; gap: 4px; }
+  .ret-input {
+    width: 58px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--teal);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 3px 6px;
+    font-family: var(--font-body);
+    outline: none;
+  }
+  .ret-input:focus { border-color: var(--blue); }
+  .ret-unit { font-size: 12px; color: var(--text-muted); }
+
+  /* Weighted avg callout */
+  .wavg-bar {
+    background: var(--teal);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+  .wavg-label { font-size: 13px; color: rgba(255,255,255,0.65); font-weight: 500; }
+  .wavg-val { font-size: 1.75rem; font-family: var(--font-display); color: #fff; }
+  .wavg-breakdown { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 2px; }
+  .wavg-right { text-align: right; }
+  .wavg-meta { display: flex; gap: 24px; }
+  .wavg-meta-item { text-align: center; }
+  .wavg-meta-item .wmv { font-size: 1.05rem; font-weight: 600; color: #fff; }
+  .wavg-meta-item .wml { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 1px; }
+
+  /* Bucket cards */
+  .buckets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+    gap: 14px;
+    margin-bottom: 2rem;
+  }
+  .bucket-card {
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .bucket-stripe {
+    height: 4px;
+    width: 100%;
+  }
+  .bucket-top { padding: 1rem 1rem 0.75rem; }
+  .bucket-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+  }
+  .bucket-name { font-size: 1rem; font-weight: 600; color: var(--teal); margin-bottom: 2px; }
+  .bucket-years { font-size: 12px; color: var(--text-muted); }
+  .bucket-divider { height: 1px; background: var(--border); margin: 0 1rem; }
+  .bucket-stats { padding: 0.75rem 1rem 1rem; display: grid; gap: 8px; }
+  .bstat-label { font-size: 11px; color: var(--text-muted); font-weight: 500; margin-bottom: 1px; }
+  .bstat-val { font-size: 1rem; font-weight: 600; color: var(--teal); font-variant-numeric: tabular-nums; }
+  .bstat-sub { font-size: 12px; color: var(--text-secondary); line-height: 1.4; font-weight: 400; }
+
+  /* Allocation bars */
+  .alloc-section { margin-bottom: 2rem; }
+  .alloc-row { margin-bottom: 10px; }
+  .alloc-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+  .alloc-name { font-size: 13px; font-weight: 500; color: var(--text-primary); }
+  .alloc-amt { font-size: 12px; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+  .alloc-track { height: 8px; background: var(--blue-light); border-radius: 4px; overflow: hidden; }
+  .alloc-fill { height: 100%; border-radius: 4px; transition: width 0.35s ease; }
+
+  /* Summary metrics */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+    gap: 12px;
+    margin-bottom: 2rem;
+  }
+  .metric-card {
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+  .metric-label { font-size: 11px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
+  .metric-val { font-size: 1.3rem; font-weight: 600; color: var(--teal); font-variant-numeric: tabular-nums; }
+  .metric-sub { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+  .metric-card.accent { background: var(--blue-light); border-color: var(--blue-mid); }
+  .metric-card.accent .metric-val { color: #0e5fa0; }
+
+  /* Notes box */
+  .notes {
+    background: var(--gold-light);
+    border: 1px solid rgba(201,168,76,0.35);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .notes-title {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .notes-body { font-size: 13.5px; color: var(--text-secondary); line-height: 1.75; }
+
+  /* Footer */
+  .footer {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.65;
+    border-top: 1px solid var(--border);
+    padding-top: 1.25rem;
+    margin-top: 0.5rem;
+  }
+  .footer strong { font-weight: 600; color: var(--text-secondary); }
+
+  /* Assumptions guide */
+  .guide {
+    margin-bottom: 2rem;
+  }
+  .guide-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-strong);
+    padding-bottom: 0;
+  }
+  .guide-tab {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    padding: 0.5rem 1rem 0.6rem;
+    cursor: pointer;
+    border: none;
+    background: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.15s, border-color 0.15s;
+    font-family: var(--font-body);
+  }
+  .guide-tab:hover { color: var(--text-primary); }
+  .guide-tab.active { color: var(--teal); border-bottom-color: var(--teal); }
+  .guide-panel { display: none; }
+  .guide-panel.active { display: block; }
+  .guide-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+  .guide-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 0 1rem 0.6rem;
+    border-bottom: 1px solid var(--border-strong);
+  }
+  .guide-table th:first-child { padding-left: 0; }
+  .guide-table td {
+    padding: 0.65rem 1rem;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-primary);
+    line-height: 1.5;
+  }
+  .guide-table td:first-child { padding-left: 0; font-weight: 500; }
+  .guide-table tr:last-child td { border-bottom: none; }
+  .guide-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 1px 7px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .tag-green  { background: #edf8f3; color: #0d6644; }
+  .tag-blue   { background: #e8f2fc; color: #14508c; }
+  .tag-gold   { background: #faf3e0; color: #7a5e14; }
+  .tag-teal   { background: #e1eaed; color: #18343f; }
+  .tag-red    { background: #fdeaea; color: #8c1414; }
+  .guide-note {
+    margin-top: 0.85rem;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    padding: 0.75rem 1rem;
+    background: var(--surface-card);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+
+  @media (max-width: 540px) {
+    .header h1 { font-size: 1.6rem; }
+    .page { padding: 2rem 1rem 3rem; }
+    .wavg-bar { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .wavg-right { text-align: left; }
+    .wavg-meta { gap: 16px; }
+    .guide-table th, .guide-table td { padding-left: 0.5rem; padding-right: 0.5rem; }
+    .guide-table th:first-child, .guide-table td:first-child { padding-left: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="header-eyebrow">DeMull Financial<span class="brand-dot"></span>Planning Tools</div>
+    <h1>Retirement Income Waterfall</h1>
+    <p>A four-bucket strategy that matches your investment horizon to your income need — protecting spending while preserving long-term growth.</p>
+  </div>
+
+  <!-- Controls -->
+  <div class="section-label">Portfolio assumptions</div>
+  <div class="controls-grid">
+    <div class="ctrl">
+      <div class="ctrl-label">Portfolio value</div>
+      <div class="ctrl-val" id="pv-out">$10,000,000</div>
+      <input type="range" id="pv" min="500000" max="25000000" step="100000" value="10000000">
+    </div>
+    <div class="ctrl">
+      <div class="ctrl-label">Annual income need (net of tax)</div>
+      <div class="ctrl-val" id="inc-out">$180,000</div>
+      <input type="range" id="inc" min="30000" max="500000" step="5000" value="180000">
+    </div>
+    <div class="ctrl">
+      <div class="ctrl-label">Effective tax rate</div>
+      <div class="ctrl-val" id="tax-out">22%</div>
+      <input type="range" id="tax" min="10" max="45" step="1" value="22">
+    </div>
+    <div class="ctrl">
+      <div class="ctrl-label">Inflation assumption</div>
+      <div class="ctrl-val" id="inf-out">3.0%</div>
+      <input type="range" id="inf" min="1" max="6" step="0.5" value="3">
+    </div>
+  </div>
+
+  <!-- Return inputs -->
+  <div class="section-label">Assumed annual returns by bucket</div>
+  <div class="returns-grid">
+    <div class="ret-card">
+      <div class="ret-dot" style="background:#1baf7a;"></div>
+      <div class="ret-inner">
+        <div class="ret-label">Bucket 1 — HYSA / cash</div>
+        <div class="ret-input-wrap">
+          <input class="ret-input" type="number" id="r1" value="3.0" min="0" max="10" step="0.1">
+          <span class="ret-unit">% / yr</span>
+        </div>
+      </div>
+    </div>
+    <div class="ret-card">
+      <div class="ret-dot" style="background:#2a78d6;"></div>
+      <div class="ret-inner">
+        <div class="ret-label">Bucket 2 — Fixed income</div>
+        <div class="ret-input-wrap">
+          <input class="ret-input" type="number" id="r2" value="5.5" min="0" max="10" step="0.1">
+          <span class="ret-unit">% / yr</span>
+        </div>
+      </div>
+    </div>
+    <div class="ret-card">
+      <div class="ret-dot" style="background:#c9a84c;"></div>
+      <div class="ret-inner">
+        <div class="ret-label">Bucket 3 — Balanced</div>
+        <div class="ret-input-wrap">
+          <input class="ret-input" type="number" id="r3" value="7.0" min="0" max="15" step="0.1">
+          <span class="ret-unit">% / yr</span>
+        </div>
+      </div>
+    </div>
+    <div class="ret-card">
+      <div class="ret-dot" style="background:#18343f;"></div>
+      <div class="ret-inner">
+        <div class="ret-label">Bucket 4 — Market index</div>
+        <div class="ret-input-wrap">
+          <input class="ret-input" type="number" id="r4" value="9.0" min="0" max="20" step="0.1">
+          <span class="ret-unit">% / yr</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Weighted average return -->
+  <div id="wavg-bar" class="wavg-bar">
+    <div>
+      <div class="wavg-label">Portfolio weighted average return</div>
+      <div class="wavg-val" id="wavg-val">—</div>
+      <div class="wavg-breakdown" id="wavg-breakdown">—</div>
+    </div>
+    <div class="wavg-meta" id="wavg-meta"></div>
+  </div>
+
+  <!-- Bucket cards -->
+  <div class="section-label">Bucket allocations</div>
+  <div class="buckets-grid" id="buckets-grid"></div>
+
+  <!-- Allocation bars -->
+  <div class="alloc-section" id="alloc-section"></div>
+
+  <!-- Summary metrics -->
+  <div class="section-label">Key metrics</div>
+  <div class="metrics-grid" id="metrics-grid"></div>
+
+  <!-- Planning notes -->
+  <div class="notes">
+    <div class="notes-title">Advisor notes</div>
+    <div class="notes-body" id="notes-body"></div>
+  </div>
+
+  <!-- Assumptions Guide -->
+  <div class="section-label">Assumptions guide</div>
+  <div class="guide">
+    <div class="guide-tabs">
+      <button class="guide-tab active" onclick="switchTab(this,'tab-tax')">Tax rate</button>
+      <button class="guide-tab" onclick="switchTab(this,'tab-returns')">Rate of return</button>
+      <button class="guide-tab" onclick="switchTab(this,'tab-inflation')">Inflation</button>
+    </div>
+
+    <!-- Tax rate panel -->
+    <div class="guide-panel active" id="tab-tax">
+      <table class="guide-table">
+        <thead>
+          <tr>
+            <th style="width:26%">Filing situation</th>
+            <th style="width:18%">Suggested rate</th>
+            <th>What to consider</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Married filing jointly, moderate income</td>
+            <td><span class="guide-tag tag-green">18–22%</span></td>
+            <td>Typical blended rate when income includes qualified dividends and long-term capital gains, which are taxed at 0–15% federally. Michigan adds a flat 4.25% state tax.</td>
+          </tr>
+          <tr>
+            <td>Married filing jointly, higher income</td>
+            <td><span class="guide-tag tag-blue">22–28%</span></td>
+            <td>Once taxable income crosses ~$190K (MFJ), the 22% federal bracket applies. Add Medicare surtax (3.8%) on net investment income above $250K. State tax unchanged.</td>
+          </tr>
+          <tr>
+            <td>Single filer</td>
+            <td><span class="guide-tag tag-gold">24–30%</span></td>
+            <td>Lower bracket thresholds mean single filers reach higher brackets sooner. A single retiree drawing $180K gross would likely land in the 22–24% federal bracket plus MI state.</td>
+          </tr>
+          <tr>
+            <td>Heavy RMD / pre-tax accounts</td>
+            <td><span class="guide-tag tag-teal">26–35%</span></td>
+            <td>If most assets are in traditional IRAs or 401(k)s, all distributions are ordinary income. RMDs at age 73+ can push income into higher brackets and trigger IRMAA surcharges on Medicare premiums.</td>
+          </tr>
+          <tr>
+            <td>Roth-heavy / tax-efficient portfolio</td>
+            <td><span class="guide-tag tag-green">10–16%</span></td>
+            <td>Roth distributions are tax-free. If most income flows from Roth accounts or stepped-up basis taxable accounts, effective rates can be very low. A lower rate here means a smaller gross income need.</td>
+          </tr>
+          <tr>
+            <td>Business owner / self-employed income</td>
+            <td><span class="guide-tag tag-red">28–40%</span></td>
+            <td>Active business income adds self-employment tax (15.3% on first ~$170K). Use a higher rate if any retirement income will still carry SE exposure, or if distributions from an S-corp are involved.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="guide-note">
+        <strong>Michigan note:</strong> Michigan taxes retirement income, but residents born before 1946 may deduct pension income; those born 1946–1952 have partial exemptions phasing in through 2026. Ask your advisor whether the Michigan pension subtraction applies to your situation — it can materially reduce your effective rate.
+      </div>
+    </div>
+
+    <!-- Returns panel -->
+    <div class="guide-panel" id="tab-returns">
+      <table class="guide-table">
+        <thead>
+          <tr>
+            <th style="width:26%">Bucket / asset class</th>
+            <th style="width:18%">Conservative</th>
+            <th>Current environment context</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="guide-tag tag-green">Bucket 1</span> HYSA / cash</td>
+            <td>2.5–4.5%</td>
+            <td>As of mid-2025, competitive HYSAs and money market funds yield roughly 4–5%. However, the Fed has begun cutting rates — conservative planning should assume yields drift toward 3% over the bucket's 3-year life. Use 3.0–3.5% as a realistic forward estimate.</td>
+          </tr>
+          <tr>
+            <td><span class="guide-tag tag-blue">Bucket 2</span> Fixed income</td>
+            <td>4.0–6.0%</td>
+            <td>Intermediate-term investment-grade bonds (3–7 year duration) currently yield 4.5–5.5%. Locking in a CD ladder or bond ladder for years 4–8 at today's rates is prudent. Use 5.0–5.5% if laddering now; 4.5% if assuming lower future reinvestment rates.</td>
+          </tr>
+          <tr>
+            <td><span class="guide-tag tag-gold">Bucket 3</span> Balanced / income</td>
+            <td>5.5–7.5%</td>
+            <td>A balanced portfolio of 50–60% equities and 40–50% bonds + alternatives has historically returned 6–8% annualized over 10-year windows. Use 6.5–7.0% as a planning baseline. REITs and dividend equities add income but can be volatile in rate-sensitive environments.</td>
+          </tr>
+          <tr>
+            <td><span class="guide-tag tag-teal">Bucket 4</span> Market index</td>
+            <td>7.0–10.0%</td>
+            <td>The S&P 500 has averaged ~10% nominally and ~7% real over long historical periods. Many financial planners use 7–8% for conservative long-range projections (accounting for valuation risk and lower expected returns vs. historical). Use 9–10% only as an optimistic scenario.</td>
+          </tr>
+          <tr>
+            <td>Weighted average (blended)</td>
+            <td>6.0–8.0%</td>
+            <td>A well-structured 4-bucket portfolio with $10M and the defaults above produces a blended return of roughly 7–8%. The weighted average updates live above as you adjust return inputs — watch how Bucket 4's weight dramatically influences the portfolio-level number.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="guide-note">
+        <strong>Historical context:</strong> The 60/40 portfolio (the traditional proxy for balanced investing) returned approximately 10.3% annualized over 1926–2023, with significantly more volatility than any single bucket shown here. The bucket strategy's purpose is not to maximize return — it is to protect spending in early years while allowing growth to compound in later buckets without forced liquidation during downturns.
+      </div>
+    </div>
+
+    <!-- Inflation panel -->
+    <div class="guide-panel" id="tab-inflation">
+      <table class="guide-table">
+        <thead>
+          <tr>
+            <th style="width:26%">Scenario</th>
+            <th style="width:18%">Rate to use</th>
+            <th>Rationale</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Fed target / normalized</td>
+            <td><span class="guide-tag tag-green">2.0–2.5%</span></td>
+            <td>The Federal Reserve's long-run inflation target is 2%. If you believe inflation will normalize to this level over the planning horizon, this is the appropriate input. It implies your purchasing power erodes slowly and Bucket 1 needs less capital.</td>
+          </tr>
+          <tr>
+            <td>Baseline / moderate</td>
+            <td><span class="guide-tag tag-blue">3.0%</span></td>
+            <td>The default used in this tool. Reflects the 30-year historical average for CPI-U (roughly 2.8–3.2%). Appropriate for most planning scenarios — slightly conservative vs. the Fed target, which builds in a small buffer for unexpected cost increases.</td>
+          </tr>
+          <tr>
+            <td>Healthcare-heavy spending</td>
+            <td><span class="guide-tag tag-gold">3.5–4.5%</span></td>
+            <td>Medical inflation (MCPI) has historically run 1–2% above general CPI. If healthcare is a significant portion of retirement spending — which it typically becomes after age 75 — use a higher assumption to avoid underestimating future income needs.</td>
+          </tr>
+          <tr>
+            <td>Elevated / stressed scenario</td>
+            <td><span class="guide-tag tag-red">4.5–6.0%</span></td>
+            <td>Use for stress testing only. The 2021–2023 inflation spike peaked near 9% CPI before normalizing. Running this scenario shows how much additional capital Bucket 1 would need if sustained higher inflation returns — useful for identifying downside risk.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="guide-note">
+        <strong>Why inflation matters here:</strong> Inflation affects this model in two ways. First, it increases the gross income needed each year — each Bucket 1 year is restated in inflation-adjusted dollars. Second, the "real" return of each bucket is its assumed nominal return minus inflation. A 5.5% bond return with 4% inflation is only 1.5% real. The tool uses nominal returns throughout; keep this in mind when evaluating whether projected bucket growth truly outpaces your cost of living.
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <strong>For illustrative purposes only.</strong> This tool does not constitute investment advice. Projections assume constant nominal returns and do not account for taxes on investment gains, sequence-of-returns risk, or changing income needs. Gross income need = net ÷ (1 − effective tax rate). Bucket 1 is sized to cover inflation-adjusted gross income for years 1–3 in cash. Buckets 2 and 3 are present-valued to today at their respective assumed returns. Bucket 4 receives the remaining portfolio balance. <strong>DeMull Financial</strong> · demullfinancial.com · (989) 572-0591 · Fiduciary, fee-based financial planning.
+  </div>
+
+</div>
+
+<script>
+const BUCKETS = [
+  { n:1, name:'Cash reserve',    years:'Years 1–3',  yearsN:3,  strategy:'High-yield savings, money market, T-bills',           risk:'No risk',       color:'#1baf7a', bgLight:'#edf8f3', textDark:'#0d6644', rKey:'r1' },
+  { n:2, name:'Fixed income',    years:'Years 4–8',  yearsN:5,  strategy:'Short/intermediate bonds, CD ladders, bond funds',    risk:'Low risk',      color:'#2a78d6', bgLight:'#e8f2fc', textDark:'#14508c', rKey:'r2' },
+  { n:3, name:'Balanced income', years:'Years 9–14', yearsN:6,  strategy:'Dividend equities, REITs, balanced / income funds',   risk:'Moderate risk', color:'#c9a84c', bgLight:'#faf3e0', textDark:'#7a5e14', rKey:'r3' },
+  { n:4, name:'Growth index',    years:'Year 15+',   yearsN:20, strategy:'Total market & S&P 500 index funds, long-term growth', risk:'Market risk',   color:'#18343f', bgLight:'#e8eef0', textDark:'#18343f', rKey:'r4' },
+];
+
+function fmt(n)  { return '$' + Math.round(n).toLocaleString(); }
+function fmtP(n) { return (Math.round(n*10)/10).toFixed(1) + '%'; }
+
+function calc() {
+  const pv      = +document.getElementById('pv').value;
+  const netInc  = +document.getElementById('inc').value;
+  const taxRate = +document.getElementById('tax').value / 100;
+  const inf     = +document.getElementById('inf').value / 100;
+  const r       = BUCKETS.map(b => +document.getElementById(b.rKey).value / 100);
+
+  const grossInc = netInc / (1 - taxRate);
+
+  // B1: 3 years cash, inflation-adjusted
+  let b1 = 0;
+  for (let y = 0; y < 3; y++) b1 += grossInc * Math.pow(1+inf, y);
+  b1 = Math.ceil(b1);
+
+  // B2: years 4-8, present valued at r[1] for 3 years
+  let b2Raw = 0;
+  for (let y = 3; y < 8; y++) b2Raw += grossInc * Math.pow(1+inf, y);
+  const b2 = Math.ceil(b2Raw / Math.pow(1+r[1], 3));
+
+  // B3: years 9-14, present valued at r[2] for 8 years
+  let b3Raw = 0;
+  for (let y = 8; y < 14; y++) b3Raw += grossInc * Math.pow(1+inf, y);
+  const b3 = Math.ceil(b3Raw / Math.pow(1+r[2], 8));
+
+  // B4: remainder
+  const b4 = Math.max(0, pv - b1 - b2 - b3);
+
+  const allocs = [b1, b2, b3, b4];
+  const pcts   = allocs.map(a => a / pv * 100);
+
+  // Weighted average return
+  const wavg = r.reduce((sum, ri, i) => sum + ri * pcts[i] / 100, 0);
+
+  // Projected growth values
+  const ev4 = b4 * Math.pow(1+r[3], 20);
+
+  const wr = grossInc / pv * 100;
+
+  return { pv, netInc, taxRate, grossInc, inf, r, allocs, pcts, wavg, ev4, wr };
+}
+
+function render() {
+  const d = calc();
+
+  // Controls display
+  document.getElementById('pv-out').textContent  = '$' + Math.round(d.pv).toLocaleString();
+  document.getElementById('inc-out').textContent = '$' + Math.round(d.netInc).toLocaleString();
+  document.getElementById('tax-out').textContent = Math.round(d.taxRate*100) + '%';
+  document.getElementById('inf-out').textContent = (+document.getElementById('inf').value).toFixed(1) + '%';
+
+  // Weighted avg bar
+  document.getElementById('wavg-val').textContent = fmtP(d.wavg*100);
+  document.getElementById('wavg-breakdown').textContent =
+    BUCKETS.map((b,i) => `B${b.n}: ${fmtP(d.pcts[i])} × ${fmtP(d.r[i]*100)}`).join('  ·  ');
+
+  const meta = document.getElementById('wavg-meta');
+  meta.innerHTML = [
+    { v: fmtP(d.wr), l: 'Withdrawal rate' },
+    { v: fmt(d.grossInc), l: 'Gross income need' },
+    { v: fmt(d.ev4), l: 'Bucket 4 (20yr est.)' },
+  ].map(m => `<div class="wavg-meta-item"><div class="wmv">${m.v}</div><div class="wml">${m.l}</div></div>`).join('');
+
+  // Bucket cards
+  const grid = document.getElementById('buckets-grid');
+  grid.innerHTML = BUCKETS.map((b,i) => `
+    <div class="bucket-card">
+      <div class="bucket-stripe" style="background:${b.color};"></div>
+      <div class="bucket-top">
+        <div class="bucket-badge" style="background:${b.bgLight};color:${b.textDark};">Bucket ${b.n} · ${b.risk}</div>
+        <div class="bucket-name">${b.name}</div>
+        <div class="bucket-years">${b.years}</div>
+      </div>
+      <div class="bucket-divider"></div>
+      <div class="bucket-stats">
+        <div>
+          <div class="bstat-label">Allocation</div>
+          <div class="bstat-val">${fmt(d.allocs[i])}</div>
+        </div>
+        <div>
+          <div class="bstat-label">Portfolio share</div>
+          <div class="bstat-val">${fmtP(d.pcts[i])}</div>
+        </div>
+        <div>
+          <div class="bstat-label">Strategy</div>
+          <div class="bstat-sub">${b.strategy}</div>
+        </div>
+        <div>
+          <div class="bstat-label">Assumed return</div>
+          <div class="bstat-val">${fmtP(d.r[i]*100)} / yr</div>
+        </div>
+      </div>
+    </div>`).join('');
+
+  // Allocation bars
+  const allocSec = document.getElementById('alloc-section');
+  allocSec.innerHTML = `<div class="section-label">Allocation breakdown</div>` +
+    BUCKETS.map((b,i) => `
+      <div class="alloc-row">
+        <div class="alloc-meta">
+          <span class="alloc-name"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${b.color};margin-right:6px;vertical-align:middle;"></span>Bucket ${b.n} — ${b.name}</span>
+          <span class="alloc-amt">${fmt(d.allocs[i])} &nbsp;·&nbsp; ${fmtP(d.pcts[i])}</span>
+        </div>
+        <div class="alloc-track">
+          <div class="alloc-fill" style="width:${Math.min(d.pcts[i],100)}%;background:${b.color};"></div>
+        </div>
+      </div>`).join('');
+
+  // Metrics
+  const wrClass = d.wr < 4 ? '' : d.wr < 5 ? '' : 'accent';
+  const wrNote  = d.wr < 4 ? 'Sustainable' : d.wr < 5 ? 'Monitor — slightly elevated' : 'Elevated — review needed';
+  document.getElementById('metrics-grid').innerHTML = [
+    { label:'Net income (after tax)', val: fmt(d.netInc),           sub:'Annual spend target',    cls:'' },
+    { label:'Gross income need',      val: fmt(d.grossInc),         sub:`Before ${Math.round(d.taxRate*100)}% tax`, cls:'' },
+    { label:'Withdrawal rate',        val: fmtP(d.wr),              sub: wrNote,                  cls: wrClass },
+    { label:'Weighted avg return',    val: fmtP(d.wavg*100),        sub:'Across all four buckets',cls:'' },
+    { label:'Bucket 4 (20yr proj.)',  val: fmt(d.ev4),              sub:'Growth index at yr 20',  cls:'' },
+  ].map(m => `
+    <div class="metric-card ${m.cls}">
+      <div class="metric-label">${m.label}</div>
+      <div class="metric-val">${m.val}</div>
+      <div class="metric-sub">${m.sub}</div>
+    </div>`).join('');
+
+  // Notes
+  const wrAdvice = d.wr < 4
+    ? 'Withdrawal rate is well within sustainable range. The growth buckets have strong compounding runway — no adjustments needed at this level.'
+    : d.wr < 5
+    ? 'Withdrawal rate is slightly elevated. Monitor Bucket 4 growth annually and consider revisiting income targets if markets underperform.'
+    : 'Withdrawal rate exceeds 5%. Consider reducing the income draw, extending bucket timelines, or adjusting portfolio risk profile.';
+
+  document.getElementById('notes-body').innerHTML =
+    `${wrAdvice}<br><br>
+    <strong>Refill triggers:</strong> Replenish Bucket 1 from Bucket 2 when cash drops to 12–18 months of income — not on a fixed calendar. Refill Bucket 2 from Bucket 3 at the year-8 mark when markets are favorable. Bucket 4 is untouched for 15+ years.<br><br>
+    <strong>Suggested vehicles:</strong> Bucket 1 → HYSA (Marcus, Ally) or Fidelity Government MM. Bucket 2 → AGG / iShares Core U.S. Aggregate or a CD ladder. Bucket 3 → VBIAX (Vanguard Balanced Index) or DFA Core Equity Income. Bucket 4 → VTI, FSKAX, or equivalent total-market index.`;
+}
+
+// Tab switching for assumptions guide
+function switchTab(btn, panelId) {
+  document.querySelectorAll('.guide-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.guide-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(panelId).classList.add('active');
+}
+
+// Slider events
+['pv','inc','tax','inf'].forEach(id => {
+  document.getElementById(id).addEventListener('input', render);
+});
+['r1','r2','r3','r4'].forEach(id => {
+  document.getElementById(id).addEventListener('input', render);
+});
+
+render();
+</script>
+</body>
+</html>
