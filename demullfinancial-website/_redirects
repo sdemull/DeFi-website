@@ -1,0 +1,60 @@
+# Extensionless -> .html  (fixes 18 crawled 404s + duplicate canonical)
+/about    /about.html    301!
+/blog    /blog.html    301!
+/business-owner-planning    /business-owner-planning.html    301!
+/business-owners    /business-owners.html    301!
+/business-working-for-you    /business-working-for-you.html    301!
+/calculators    /calculators.html    301!
+/client-login    /client-login.html    301!
+/college-athletes    /college-athletes.html    301!
+/debt-vs-invest    /debt-vs-invest.html    301!
+/financial-planning    /financial-planning.html    301!
+/get-started    /get-started.html    301!
+/home-affordability    /home-affordability.html    301!
+/investment-management    /investment-management.html    301!
+/our-network    /our-network.html    301!
+/our-process    /our-process.html    301!
+/plan-sponsor-advisory    /plan-sponsor-advisory.html    301!
+/plan-sponsors    /plan-sponsors.html    301!
+/professionals    /professionals.html    301!
+/resources    /resources.html    301!
+/retirement-plan-design    /retirement-plan-design.html    301!
+/retirement-plan-comparison    /retirement-plan-comparison.html    301!
+/retirement-readiness    /retirement-readiness.html    301!
+/roth-conversion-calculator    /roth-conversion-calculator.html    301!
+/solo-401k-vs-sep-ira    /solo-401k-vs-sep-ira.html    301!
+/tax-planning    /tax-planning.html    301!
+/tax-prep    /tax-prep.html    301!
+/tax-savings-estimator    /tax-savings-estimator.html    301!
+/tradespeople    /tradespeople.html    301!
+/what-we-do    /what-we-do.html    301!
+/who-we-serve    /who-we-serve.html    301!
+
+# Blog posts
+/blog/401k-business-owner-wealth    /blog/401k-business-owner-wealth.html    301!
+/blog/how-business-owners-should-pay-themselves    /blog/how-business-owners-should-pay-themselves.html    301!
+/blog/maximize-your-401k-participant    /blog/maximize-your-401k-participant.html    301!
+/blog/s-corp-election-guide    /blog/s-corp-election-guide.html    301!
+/blog/simple-ira-to-401k-upgrade    /blog/simple-ira-to-401k-upgrade.html    301!
+/blog/solo-401k-vs-sep-ira    /blog/solo-401k-vs-sep-ira.html    301!
+/blog/what-is-a-fiduciary-financial-advisor    /blog/what-is-a-fiduciary-financial-advisor.html    301!
+/blog/year-end-tax-moves    /blog/year-end-tax-moves.html    301!
+
+# Old CMS paths
+/products-services/small-business-retirement-plans    /retirement-plan-design.html    301!
+/products-services/*    /what-we-do.html    301
+/services/*    /what-we-do.html    301
+/team/*    /about.html    301
+/contact    /get-started.html    301!
+/contact-us    /get-started.html    301!
+
+# Short URLs (rewrite, URL stays clean)
+/AFE    /AFE.html    200
+/advanced-farm-equipment-401k    /AFE.html    301!
+
+# Everything else -> styled 404 (must be last)
+/tax-planning-for-business-owners    /tax-planning-for-business-owners.html    301!
+/financial-advisor-michigan    /financial-advisor-michigan.html    301!
+/blog/roth-catch-up-rule-2026    /blog/roth-catch-up-rule-2026.html    301!
+
+/*    /404.html    404
