@@ -250,7 +250,7 @@ a{text-decoration:none;color:inherit;}
   <h3 style="font-family:'DM Serif Display',serif;font-size:23px;color:#18343f;margin:0 0 8px;line-height:1.2;">Want this emailed to you?</h3>
   <p style="font-size:14px;color:#5a7885;line-height:1.7;margin:0 0 20px;">I'll send your results plus a short note on what I'd look at first. No newsletter spam, no drip sequence you can't get out of.</p>
   <form name="calc-roth" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-    <input type="hidden" name="form-name" value="calc-roth">
+    <input type="hidden" name="form-name" value="calc-roth"><input type="hidden" name="results_summary" value=""><input type="hidden" name="inputs_entered" value="">
     <input type="hidden" name="tool" value="Roth Conversion Calculator">
     
     <p style="display:none;"><label>Skip: <input name="bot-field"></label></p>
@@ -403,6 +403,36 @@ document.addEventListener('submit', function(e){
     gtag('event', 'lead_form_submit', {page_location: window.location.pathname});
   }
 });
+</script>
+<script>
+(function(){
+  var form=document.querySelector('form[name="calc-roth"]'); if(!form) return;
+  function clean(t){return (t||'').replace(/\s+/g,' ').trim().slice(0,1500);}
+  form.addEventListener('submit',function(){
+    var res=document.getElementById('rc-results');
+    var shown=res && getComputedStyle(res).display!=='none';
+    form.results_summary.value = shown ? clean(res.innerText) : 'Visitor did not run the calculator before submitting';
+    var ins=[];
+    document.querySelectorAll('input[type=number],input[type=range],select').forEach(function(el){
+      if(el.closest('form')===form) return;
+      var lab=(el.closest('.field-group,.q-card,div')||{}).innerText||el.id;
+      var v=el.tagName==='SELECT'?el.options[el.selectedIndex].text:el.value;
+      if(el.id) ins.push(el.id+': '+v);
+    });
+    form.inputs_entered.value=clean(ins.join(' | '));
+    if(form.score_grade){
+      var g=document.getElementById('result-grade'), s=document.getElementById('result-summary');
+      form.score_grade.value=clean(g?g.innerText:'');
+      var st=window.__quizState, qs=window.__quizQuestions||[], out=[];
+      if(st&&st.answers){qs.forEach(function(q){var a=st.answers[q.id]; if(a===undefined) return;
+        var lab=a; if(q.options){q.options.forEach(function(o){if(o.value===a) lab=o.label;});}
+        else if(q.format==='dollars'){lab='$'+Number(a).toLocaleString();}
+        out.push(q.text+' => '+lab);});}
+      form.quiz_answers.value=clean(out.join(' | '));
+      if(s&&!shown) form.results_summary.value=clean(s.innerText);
+    }
+  });
+})();
 </script>
 </body>
 </html>
