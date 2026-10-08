@@ -200,6 +200,14 @@ a{text-decoration:none;color:inherit;}
 
   <script type="text/javascript" src="https://cdn.oncehub.com/cal/embed.js" async></script>
 <link rel="canonical" href="https://demullfinancial.com/who-we-serve.html">
+<style>
+@media(max-width:600px){
+  .process-grid { grid-template-columns:1fr 1fr !important; row-gap:32px !important; }
+}
+@media(max-width:480px){
+  .nl-form { flex-direction:column; }
+}
+</style>
 </head>
 <body>
 
@@ -258,7 +266,7 @@ a{text-decoration:none;color:inherit;}
     <p class="bod dark a d2" style="max-width:540px;margin:0 auto 56px;">From our first conversation to an ongoing relationship, you’ll always know exactly where you are and what comes next.</p>
   </div>
   <div class="w">
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;" class="a">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;" class="a process-grid">
       <!-- connector line -->
       <div style="position:absolute;top:28px;left:calc(12.5% + 14px);right:calc(12.5% + 14px);height:2px;background:linear-gradient(90deg,var(--blue),var(--blue-light));z-index:0;"></div>
 
@@ -613,7 +621,7 @@ function resetQuiz() {
     <div style="font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#38b5fe;margin-bottom:12px;">Stay Informed</div>
     <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(24px,3.5vw,36px);color:#18343f;line-height:1.2;margin-bottom:14px;">Financial insights for people who’ve built something worth protecting.</h2>
     <p style="font-size:15px;color:#5a7885;line-height:1.75;margin-bottom:32px;font-weight:300;">No fluff, no sales pitch. Just practical financial thinking for business owners and professionals in Michigan — once or twice a month.</p>
-    <form style="display:flex;gap:12px;max-width:480px;margin:0 auto;" onsubmit="handleNewsletterSubmit(event)">
+    <form class="nl-form" style="display:flex;gap:12px;max-width:480px;margin:0 auto;" onsubmit="handleNewsletterSubmit(event)">
       <input type="email" id="newsletter-email" placeholder="Your email address" required
         style="flex:1;padding:14px 18px;border:1.5px solid rgba(24,52,63,.15);border-radius:8px;font-size:15px;font-family:'DM Sans',sans-serif;color:#18343f;outline:none;transition:border-color .2s;"
         onfocus="this.style.borderColor='#38b5fe'" onblur="this.style.borderColor='rgba(24,52,63,.15)'">
