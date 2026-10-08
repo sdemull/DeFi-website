@@ -428,7 +428,7 @@
     <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(28px,4vw,44px);color:#18343f;text-align:center;line-height:1.12;margin-bottom:16px;">You didn&rsquo;t build something real<br>to wonder if you&rsquo;re doing it right financially.</h2>
     <p style="font-size:17px;color:#5a7885;text-align:center;line-height:1.75;max-width:620px;margin:0 auto 64px;font-weight:300;">We work with people who have built something worth protecting &mdash; and are ready for a plan that actually reflects that.</p>
 
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;">
+    <div class="grid-4col" style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;">
 
       <!-- Business Owners -->
       <a href="business-owners.html" style="text-decoration:none;display:flex;flex-direction:column;background:#f8fafb;border:1.5px solid rgba(24,52,63,.09);border-radius:12px;padding:32px 28px;transition:border-color .2s,transform .25s,box-shadow .25s;color:inherit;" onmouseover="this.style.borderColor='#38b5fe';this.style.transform='translateY(-5px)';this.style.boxShadow='0 20px 48px rgba(24,52,63,.1)'" onmouseout="this.style.borderColor='rgba(24,52,63,.09)';this.style.transform='';this.style.boxShadow=''">
@@ -478,7 +478,7 @@
 <section style="padding:96px 0;background:#18343f;position:relative;overflow:hidden;">
   <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 80% 50%,rgba(56,181,254,.07),transparent 60%);"></div>
   <div style="max-width:1200px;margin:0 auto;padding:0 40px;position:relative;z-index:1;">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+    <div class="problem-sol-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
       <div>
         <div style="font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#6dcbff;margin-bottom:16px;">The Real Problem</div>
         <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(26px,3.5vw,40px);color:#fff;line-height:1.15;margin-bottom:24px;">Most business owners have a CPA, an investment account, and a retirement plan.<br><em style="font-style:italic;color:#6dcbff;">None of them talk to each other.</em></h2>
@@ -533,7 +533,7 @@
 
 <!-- STATS -->
 <section style="padding:0;background:#18343f;border-top:1px solid rgba(255,255,255,.07);">
-  <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);">
+  <div class="stats-grid" style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);">
     <div style="padding:52px 40px;text-align:center;border-right:1px solid rgba(255,255,255,.07);">
       <div style="font-family:'DM Serif Display',serif;font-size:clamp(44px,5vw,64px);color:#6dcbff;line-height:1;margin-bottom:10px;">78<span style="font-size:.55em;">%</span></div>
       <div style="font-size:13px;color:rgba(255,255,255,.45);line-height:1.65;max-width:200px;margin:0 auto;">of business owners reinvest most profits back in the business &mdash; often at the expense of personal wealth</div>
@@ -557,7 +557,7 @@
     </div>
     <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(26px,3.5vw,40px);color:#18343f;text-align:center;line-height:1.12;margin-bottom:14px;">Run the numbers before you call.</h2>
     <p style="font-size:16px;color:#5a7885;text-align:center;line-height:1.75;max-width:520px;margin:0 auto 56px;font-weight:300;">Free calculators built for business owners and self-employed professionals. No email required.</p>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
+    <div class="tools-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
 
       <a href="tax-savings-estimator.html" style="text-decoration:none;background:#fff;border:1.5px solid rgba(24,52,63,.09);border-radius:12px;padding:36px 32px;display:block;transition:border-color .2s,transform .25s,box-shadow .25s;" onmouseover="this.style.borderColor='#38b5fe';this.style.transform='translateY(-4px)';this.style.boxShadow='0 16px 40px rgba(24,52,63,.09)'" onmouseout="this.style.borderColor='rgba(24,52,63,.09)';this.style.transform='';this.style.boxShadow=''">
         <div style="width:48px;height:48px;border-radius:10px;background:rgba(56,181,254,.1);display:flex;align-items:center;justify-content:center;margin-bottom:18px;">
@@ -593,7 +593,7 @@
 <!-- TRUST / FIDUCIARY -->
 <section style="padding:96px 0;background:#fff;">
   <div style="max-width:1200px;margin:0 auto;padding:0 40px;">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+    <div class="trust-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
       <div>
         <div style="font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#38b5fe;margin-bottom:16px;">Why It Matters</div>
         <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(26px,3.5vw,40px);color:#18343f;line-height:1.15;margin-bottom:20px;">Fee-based. Fiduciary.<br>Always on your side.</h2>
@@ -656,6 +656,15 @@
   .tools-grid { grid-template-columns:1fr !important; }
   .trust-grid { grid-template-columns:1fr !important; gap:40px !important; }
 }
+@media(max-width:600px){
+  #who-we-serve .grid-4col { grid-template-columns:1fr !important; }
+  .stats-grid { grid-template-columns:1fr !important; }
+  .stats-grid > div { border-right:none !important; border-bottom:1px solid rgba(255,255,255,.07); }
+  .stats-grid > div:last-child { border-bottom:none; }
+}
+@media(max-width:480px){
+  .form-row { grid-template-columns:1fr !important; }
+}
 </style>
 
 
@@ -670,7 +679,7 @@
     <form name="lead-contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="display:flex;flex-direction:column;gap:16px;">
       <input type="hidden" name="form-name" value="lead-contact">
       <p style="display:none;"><label>Don't fill this out: <input name="bot-field"></label></p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div class="form-row" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
         <div>
           <label style="display:block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#18343f;margin-bottom:7px;">Name *</label>
           <input type="text" name="name" required placeholder="Your name" style="width:100%;padding:13px 16px;border:1.5px solid rgba(24,52,63,.15);border-radius:10px;font-size:15px;font-family:'DM Sans',sans-serif;color:#18343f;outline:none;box-sizing:border-box;background:#fff;">
@@ -680,7 +689,7 @@
           <input type="email" name="email" required placeholder="you@company.com" style="width:100%;padding:13px 16px;border:1.5px solid rgba(24,52,63,.15);border-radius:10px;font-size:15px;font-family:'DM Sans',sans-serif;color:#18343f;outline:none;box-sizing:border-box;background:#fff;">
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div class="form-row" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
         <div>
           <label style="display:block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#18343f;margin-bottom:7px;">Phone (optional)</label>
           <input type="tel" name="phone" placeholder="(989) 555-0100" style="width:100%;padding:13px 16px;border:1.5px solid rgba(24,52,63,.15);border-radius:10px;font-size:15px;font-family:'DM Sans',sans-serif;color:#18343f;outline:none;box-sizing:border-box;background:#fff;">
@@ -696,7 +705,7 @@
           </select>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div class="form-row" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
         <div>
           <label style="display:block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#18343f;margin-bottom:7px;">Business revenue</label>
           <select name="business_size" style="width:100%;padding:13px 16px;border:1.5px solid rgba(24,52,63,.15);border-radius:10px;font-size:15px;font-family:'DM Sans',sans-serif;color:#18343f;outline:none;box-sizing:border-box;background:#fff;cursor:pointer;">
