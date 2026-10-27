@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="stylesheet" href="/refresh.css">
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Is Your Business Working For You? Free Assessment</title>
 <meta name="description" content="Seven questions to score whether your business is building personal wealth or just keeping you busy. Free, instant results, no email required.">
@@ -190,7 +191,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
   <div class="hero-inner">
     <div class="hero-tag">Free Assessment</div>
     <h1 class="hero-h1">Is your business<br><em>working for you?</em></h1>
-    <p class="hero-sub">7 questions. 3 minutes. A clear picture of whether your business success is translating into real personal wealth &mdash; and where the gaps are.</p>
+    <p class="hero-sub">7 questions. 3 minutes. A clear picture of whether your business success is translating into real personal wealth, and where the gaps are.</p>
   </div>
 </div>
 
@@ -265,7 +266,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 </div>
 <div class="results-cta">
         <div class="results-cta-title">Your next step is a conversation.</div>
-        <div class="results-cta-sub">A free 30-minute call with Sage. No pitch, no pressure &mdash; just an honest look at your situation and what a real plan could change.</div>
+        <div class="results-cta-sub">A free 30-minute call with Sage. No pitch, no pressure: just an honest look at your situation and what a real plan could change.</div>
         <a href="https://oncehub.com/meetsage" target="_blank" class="btn-cta-p" id="result-cta-btn" rel="noopener">Book a free 30-min call &rarr;</a>
         <button class="btn-restart" onclick="restartCalc()">Start over</button>
       </div>
@@ -598,7 +599,7 @@ document.querySelectorAll('.nav-dd-trigger').forEach(function(t){
     var grade, summary, cta_copy;
     if (pct >= 75) {
       grade = 'Your business is largely working for you.';
-      summary = 'You’re doing a lot of things right. A conversation could help identify gaps and optimization opportunities you may not have considered yet — there’s almost always room to get more out of what you’ve built.';
+      summary = 'You’re doing a lot of things right. A conversation could help identify gaps and optimization opportunities you may not have considered yet: there’s almost always room to get more out of what you’ve built.';
       cta_copy = 'Confirm Your Strategy';
     } else if (pct >= 45) {
       grade = 'Your business success isn’t fully reaching you personally.';
@@ -606,13 +607,13 @@ document.querySelectorAll('.nav-dd-trigger').forEach(function(t){
       cta_copy = 'Find the Gaps';
     } else {
       grade = 'Your business is working harder than you are.';
-      summary = 'Based on your answers, your personal finances likely haven’t kept pace with your business success. That’s extremely common — and very fixable. The right plan can change the trajectory significantly.';
+      summary = 'Based on your answers, your personal finances likely haven’t kept pace with your business success. That’s extremely common, and very fixable. The right plan can change the trajectory significantly.';
       cta_copy = 'Let’s Fix This';
     }
 
     document.getElementById('result-grade').textContent = grade;
     document.getElementById('result-summary').textContent = summary;
-    document.getElementById('result-cta-btn').textContent = 'Book a free 30-min call — ' + cta_copy + ' →';
+    document.getElementById('result-cta-btn').textContent = 'Book a free 30-min call: ' + cta_copy + ' →';
 
     // Breakdown
     var items = [];
@@ -651,7 +652,7 @@ document.querySelectorAll('.nav-dd-trigger').forEach(function(t){
 
     // Gaps selected
     if (gaps.length >= 3) {
-      items.push({ color: '#18343f', icon: '⚠', label: 'Multiple Gaps Identified', detail: 'You flagged ' + gaps.length + ' areas of concern. When multiple gaps exist simultaneously, the cumulative impact on your personal wealth is significant — and the opportunity to improve is equally large.' });
+      items.push({ color: '#18343f', icon: '⚠', label: 'Multiple Gaps Identified', detail: 'You flagged ' + gaps.length + ' areas of concern. When multiple gaps exist simultaneously, the cumulative impact on your personal wealth is significant, and the opportunity to improve is equally large.' });
     }
 
     // Personal wealth
