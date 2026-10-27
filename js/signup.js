@@ -1,7 +1,7 @@
 /* Shared email signup: AJAX submit to Web3Forms, success state, GA4 event, blog slide-in. */
 (function(){
   /* Web3Forms access key: the ONLY place it lives. */
-  var WEB3FORMS_ACCESS_KEY='WEB3FORMS_ACCESS_KEY_PLACEHOLDER';
+  var WEB3FORMS_ACCESS_KEY='e4e948b8-0b19-4c95-a094-9cc380129233';
   var ENDPOINT='https://api.web3forms.com/submit';
   function bind(f){
     if(f.__sb)return;f.__sb=1;
