@@ -71,5 +71,46 @@
 /year-end-tax-moves.html    /blog/year-end-tax-moves.html    301!
 /year-end-tax-moves    /blog/year-end-tax-moves.html    301!
 
+# Newest blog post (was missing from the extensionless list)
+/blog/profit-sharing-401k-optionality    /blog/profit-sharing-401k-optionality.html    301!
+
+# Waterfall tool, including lowercase
+/Waterfall    /Waterfall.html    301!
+/waterfall    /Waterfall.html    301!
+
+# Dead Newsletter nav link on leftover root blog copies
+/newsletter.html    /resources.html    301!
+/newsletter         /resources.html    301!
+
+# .html variants of existing /contact and /contact-us redirects
+/contact.html       /get-started.html    301!
+/contact-us.html    /get-started.html    301!
+
+# Old homepage filename plus common aliases
+/demull-homepage.html    /    301!
+/demull-homepage         /    301!
+/home                    /    301!
+/home/                   /    301!
+/home.html               /    301!
+/index.php               /    301!
+
+# Common aliases that currently 404
+/about-us         /about.html    301!
+/about-us/        /about.html    301!
+/about-me         /about.html    301!
+/about-me/        /about.html    301!
+/login            /client-login.html    301!
+/login.html       /client-login.html    301!
+/account          /client-login.html    301!
+/account.html     /client-login.html    301!
+/sitemap          /sitemap.xml    301!
+/sitemap.html     /sitemap.xml    301!
+
+# Browser auto-requests: serve real icons instead of the HTML 404 page (which has GA)
+/apple-touch-icon-precomposed.png    /apple-touch-icon.png    200
+/apple-touch-icon-120x120.png        /apple-touch-icon.png    200
+/apple-touch-icon-152x152.png        /apple-touch-icon.png    200
+/apple-touch-icon-180x180.png        /apple-touch-icon.png    200
+
 # Everything else -> styled 404 (must be last)
 /*    /404.html    404
